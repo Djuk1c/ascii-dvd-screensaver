@@ -7,8 +7,8 @@
 #include <vector>
 #include <cstdlib>
 
-#define HEIGHT  64
-#define WIDTH   35
+#define HEIGHT  31
+#define WIDTH   56
 
 std::vector<std::string> readAscii()
 {
@@ -33,17 +33,17 @@ int main()
     
     std::vector<std::string> logo = readAscii();
 
-    int y = (rand() % 30) + 1;
-    int x = (rand() % 60) + 1;
+    int y = (rand() % (HEIGHT - 5)) + 1;
+    int x = (rand() % (WIDTH - 5)) + 1;
     bool up = false;
     bool right = true;
     while (true)
     {
         this_thread::sleep_for(chrono::milliseconds(35));
 
-        if (y == 0 || y == WIDTH)
+        if (y == 0 || y == HEIGHT)
             up = !up;
-        if (x == 0 || x == HEIGHT)
+        if (x == 0 || x == WIDTH)
             right = !right;
 
         up ? y-- : y++;
