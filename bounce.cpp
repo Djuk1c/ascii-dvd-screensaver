@@ -7,9 +7,6 @@
 #include <vector>
 #include <cstdlib>
 
-#define HEIGHT  31
-#define WIDTH   56
-
 std::vector<std::string> readAscii()
 {
     std::vector<std::string> vec;
@@ -33,17 +30,23 @@ int main()
     
     std::vector<std::string> logo = readAscii();
 
-    int y = (rand() % (HEIGHT - 5)) + 1;
-    int x = (rand() % (WIDTH - 5)) + 1;
+    int maxW, maxH;
+    getmaxyx(stdscr, maxH, maxW);
+    maxH -= logo.size();
+    maxW /= 2;
+    maxW -= 36;     // Should be half of the ASCII logo width
+    
+    int y = (rand() % (maxH - 5)) + 1;
+    int x = (rand() % (maxW - 5)) + 1;
     bool up = false;
     bool right = true;
     while (true)
     {
         this_thread::sleep_for(chrono::milliseconds(35));
 
-        if (y == 0 || y == HEIGHT)
+        if (y == 0 || y == maxH)
             up = !up;
-        if (x == 0 || x == WIDTH)
+        if (x == 0 || x == maxW)
             right = !right;
 
         up ? y-- : y++;
